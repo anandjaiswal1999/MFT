@@ -1,0 +1,12 @@
+[project]
+name = "local-mft"
+version = "0.1.0"
+description = "Local medium-frequency paper trading and backtesting engine"
+requires-python = ">=3.11"
+
+[project.scripts]
+mft = "mft.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+

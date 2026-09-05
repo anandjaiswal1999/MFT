@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MFT Console</title><meta name="description" content="Local medium-frequency trading research dashboard">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/workflow.css">
+</head>
+<body>
+  <header><div class="brand"><span class="mark">M</span><span>MFT Console</span></div><div class="mode"><i></i> PAPER MODE</div></header>
+  <main>
+    <nav class="workflow" aria-label="Trading research workflow"><span class="active"><b>1</b>Select</span><span><b>2</b>Backtest</span><span><b>3</b>Validate</span><span><b>4</b>Paper trade</span><span><b>5</b>Review</span></nav>
+    <section class="headline">
+      <div><p class="eyebrow">INDIAN EQUITIES · NSE</p><h1>Strategy laboratory</h1><p>Test hourly signals on Indian stocks using delayed market data. Real-money execution is disabled.</p></div>
+      <button id="run">Run backtest <span>→</span></button>
+    </section>
+    <section class="metrics">
+      <article><label>Ending equity</label><strong id="equity">—</strong><small>Starting from configured cash</small></article>
+      <article><label>Total return</label><strong id="returns">—</strong><small id="returnNote">After costs</small></article>
+      <article><label>Maximum drawdown</label><strong id="drawdown">—</strong><small>Peak-to-trough decline</small></article>
+      <article><label>Risk-adjusted return</label><strong id="sharpe">—</strong><small>Annualized Sharpe ratio</small></article>
+    </section>
+    <section class="workspace">
+      <article class="chart-card">
+        <div class="card-head"><div><p class="eyebrow">PORTFOLIO</p><h2>Equity curve</h2></div><span id="trades">No run yet</span></div>
+        <div class="chart-wrap"><svg id="chart" viewBox="0 0 900 330" preserveAspectRatio="none" aria-label="Backtest equity curve"><g class="grid"></g><path class="area"></path><path class="line"></path></svg><div id="empty">Run a backtest to generate the equity curve.</div></div>
+      </article>
+      <aside>
+        <div class="card-head"><div><p class="eyebrow">PARAMETERS</p><h2>Strategy controls</h2></div></div>
+        <form id="controls">
+          <label>Indian stock<select id="symbol"><option value="RELIANCE.NS">Reliance Industries</option><option value="PAYTM.NS">Paytm (One 97 Communications)</option><option value="TCS.NS">Tata Consultancy Services</option><option value="HDFCBANK.NS">HDFC Bank</option><option value="INFY.NS">Infosys</option><option value="ICICIBANK.NS">ICICI Bank</option><option value="SBIN.NS">State Bank of India</option><option value="BHARTIARTL.NS">Bharti Airtel</option><option value="ITC.NS">ITC</option><option value="LT.NS">Larsen & Toubro</option><option value="MARUTI.NS">Maruti Suzuki</option></select></label>
+          <label>Starting cash <span id="cashLabel">₹10,000</span><input id="cash" type="range" min="1000" max="100000" step="1000" value="10000"></label>
+          <div class="pair"><label>Fast average<input id="fast" type="number" min="2" max="95" value="24"></label><label>Slow average<input id="slow" type="number" min="3" max="300" value="96"></label></div>
+          <label>Annual volatility target <span id="volLabel">20%</span><input id="vol" type="range" min="5" max="50" value="20"></label>
+          <label>Drawdown circuit breaker <span id="ddLabel">12%</span><input id="dd" type="range" min="2" max="30" value="12"></label>
+          <label>Test period<select id="bars"><option value="250">250 market hours</option><option value="500">500 market hours</option><option value="1000" selected>1,000 market hours</option><option value="1500">1,500 market hours</option></select></label>
+        </form>
+        <div class="safety"><b>Safety lock active</b><p>Orders cannot leave this computer. This dashboard is for research and paper trading only.</p></div>
+      </aside>
+    </section>
+    <section id="decision" class="decision hidden">
+      <div><p class="eyebrow">UNSEEN-DATA CHECK</p><h2 id="verdict">Waiting for a test</h2><p id="verdictCopy"></p></div>
+      <div class="validation-metrics"><span>Validation return <b id="validationReturn">—</b></span><span>Buy &amp; hold <b id="benchmark">—</b></span><span>Validation hours <b id="validationHours">—</b></span></div>
+      <div id="checks" class="checks"></div>
+    </section>
+  </main>
+  <footer><span>Local engine · NSE hourly candles · Long/flat</span><span id="status">Engine ready</span></footer>
+  <script src="/app.js"></script>
+</body></html>
